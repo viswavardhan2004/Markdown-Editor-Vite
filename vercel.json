@@ -1,0 +1,31 @@
+// my-monorepo/vercel.json (at the root of your mono-repo)
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json", // Tells Vercel to build your frontend
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build" // IMPORTANT: Set this to your frontend's build output directory (e.g., "dist", "build", "out")
+      }
+    },
+    {
+      "src": "backend/server.js", // Tells Vercel to build your backend serverless function
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    // 1. API routes first (proxy to backend)
+    {
+      "src": "/api/(.*)", // All requests starting with /api/
+      "dest": "backend/server.js" // Route them to your backend serverless function
+    },
+    // 2. Frontend SPA fallback (important for refresh)
+    {
+      "src": "/(.*)", // All other requests
+      "dest": "frontend/build/index.html" // Serve your frontend's index.html
+    }
+  ],
+  // Optional: Build commands for the mono-repo
+  "buildCommand": "npm run build:frontend && npm run build:backend" // Example: If you have scripts for building
+}
