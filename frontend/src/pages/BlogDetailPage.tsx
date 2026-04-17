@@ -42,6 +42,18 @@ export const BlogDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (slug) {
@@ -182,6 +194,14 @@ export const BlogDetailPage: React.FC = () => {
       <Navbar 
         onLogout={handleLogout}
       />
+      
+      {/* Reading Progress Bar */}
+      <div className="fixed top-16 left-0 w-full h-1 z-50 bg-gray-100">
+        <div 
+          className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-150"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
       
       <div className="max-w-4xl mx-auto py-8 px-4">
         {/* Blog Header */}
