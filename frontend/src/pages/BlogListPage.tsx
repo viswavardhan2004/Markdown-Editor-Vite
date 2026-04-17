@@ -11,7 +11,8 @@ import {
   Search,
   User,
   Tag,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Trash2
 } from 'lucide-react';
 import { Navbar } from '../components/UI/Navbar';
 import { Button } from '../components/UI/Button';
@@ -364,10 +365,10 @@ export const BlogListPage: React.FC = () => {
                 onClick={clearFilters}
                 variant="secondary"
                 size="sm"
-                className="flex items-center"
+                className="flex items-center text-red-600 hover:text-red-700 hover:bg-red-50 border-red-100"
               >
-                <Filter className="w-4 h-4 mr-2" />
-                Clear Filters
+                <Trash2 className="w-4 h-4 mr-2" />
+                Reset All
               </Button>
             </div>
 
