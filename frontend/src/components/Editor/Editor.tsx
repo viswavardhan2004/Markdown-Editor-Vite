@@ -42,8 +42,16 @@ export const Editor: React.FC<EditorProps> = ({
           }}
         />
         {/* Line numbers could be added here */}
-        <div className="absolute bottom-4 right-4 text-xs text-gray-500 bg-gray-800 px-2 py-1 rounded">
-          {content.split('\n').length} lines
+        <div className="absolute bottom-4 right-4 flex items-center space-x-3 text-xs text-gray-400">
+          <span className="bg-gray-800 px-2 py-1 rounded shadow-sm border border-gray-700">
+            {content.length > 0 ? content.trim().split(/\s+/).length : 0} words
+          </span>
+          <span className="bg-gray-800 px-2 py-1 rounded shadow-sm border border-gray-700">
+            {content.length} chars
+          </span>
+          <span className="bg-gray-800 px-2 py-1 rounded shadow-sm border border-gray-700">
+            {content.split('\n').length} lines
+          </span>
         </div>
       </div>
     </div>
