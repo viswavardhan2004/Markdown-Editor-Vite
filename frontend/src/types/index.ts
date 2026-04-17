@@ -2,6 +2,7 @@
 export type User = {
   _id: string;
   email: string;
+  username?: string;
 };
 
 export type LoginCredentials = {

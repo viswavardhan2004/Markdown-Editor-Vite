@@ -7,7 +7,6 @@ import {
   Calendar, 
   Clock,
   FileText,
-  Filter,
   Search,
   User,
   Tag,

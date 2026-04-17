@@ -241,7 +241,7 @@ class ApiService {
     page?: number;
     limit?: number;
     tags?: string;
-    sortBy?: 'relevance' | 'date' | 'views' | 'likes';
+    sortBy?: 'relevance' | 'date' | 'views' | 'likes' | 'readTime';
     sortOrder?: 'asc' | 'desc';
     includeOwn?: boolean;
   }): Promise<SearchResponse> {
