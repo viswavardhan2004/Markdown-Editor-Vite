@@ -9,7 +9,8 @@ import {
   DashboardPage, 
   BlogListPage, 
   BlogDetailPage, 
-  PublicBlogListPage 
+  PublicBlogListPage,
+  NotFoundPage
 } from './pages';
 import './App.css';
 
@@ -101,8 +102,8 @@ const AppContent: React.FC = () => {
         }
       />
       
-      {/* Catch all route - redirect to main page */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* Catch all route - show 404 page */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
