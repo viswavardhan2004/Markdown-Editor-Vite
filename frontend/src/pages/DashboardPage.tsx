@@ -188,6 +188,9 @@ export const DashboardPage: React.FC = () => {
                   <option value={30}>Last 30 days</option>
                   <option value={90}>Last 90 days</option>
                 </select>
+                <Button onClick={loadDashboardStats} variant="secondary" title="Refresh data">
+                  <Activity className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                </Button>
                 <Button onClick={() => navigate('/dashboard/editor')} className="bg-blue-600 hover:bg-blue-700">
                   <FileText className="w-4 h-4 mr-2" />
                   New Post
