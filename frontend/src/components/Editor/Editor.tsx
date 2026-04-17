@@ -1,5 +1,5 @@
 import React from 'react';
-import { Copy } from 'lucide-react';
+import { Copy, Trash2 } from 'lucide-react';
 
 interface EditorProps {
   content: string;
@@ -30,6 +30,18 @@ export const Editor: React.FC<EditorProps> = ({
           >
             <Copy className="w-3 h-3" />
             <span>Copy</span>
+          </button>
+          <button 
+            onClick={() => {
+              if (window.confirm('Are you sure you want to clear all content? This cannot be undone.')) {
+                onChange('');
+              }
+            }}
+            className="flex items-center space-x-1 px-2 py-1 text-xs text-gray-600 hover:text-red-600 hover:bg-white rounded transition-colors border border-transparent hover:border-red-200"
+            title="Clear all content"
+          >
+            <Trash2 className="w-3 h-3" />
+            <span>Clear</span>
           </button>
           <div className="text-xs text-gray-500">Markdown</div>
           <div className="flex space-x-1">
