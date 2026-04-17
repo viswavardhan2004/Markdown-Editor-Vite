@@ -6,7 +6,8 @@ import {
   Heart, 
   Share2, 
   FileText, 
-  Activity
+  Activity,
+  FolderPlus
 } from 'lucide-react';
 import { Navbar } from '../components/UI/Navbar';
 import { Button } from '../components/UI/Button';
@@ -363,6 +364,14 @@ export const DashboardPage: React.FC = () => {
               >
                 <FileText className="w-4 h-4 mr-2" />
                 Editor
+              </Button>
+              <Button 
+                onClick={() => navigate('/dashboard/editor')}
+                variant="secondary"
+                className="w-full"
+              >
+                <FolderPlus className="w-4 h-4 mr-2" />
+                Create New Folder
               </Button>
               <Button 
                 onClick={() => navigate('/')}
