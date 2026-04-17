@@ -308,7 +308,15 @@ export const DashboardPage: React.FC = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
+                <button 
+                  onClick={() => navigate('/dashboard/blogs')}
+                  className="text-xs font-medium text-blue-600 hover:text-blue-700"
+                >
+                  View all
+                </button>
+              </div>
               <div className="space-y-3">
                 {stats?.recentBlogs?.slice(0, 3).map((blog) => (
                   <div key={blog._id} className="flex items-center justify-between">
