@@ -35,6 +35,7 @@ export const EditorPage = () => {
   const [blogAnalytics, setBlogAnalytics] = useState<BlogAnalytics | null>(null);
   const [blogData, setBlogData] = useState<BlogType | null>(null);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const {
     folders,
     files,
@@ -217,6 +218,7 @@ export const EditorPage = () => {
   const debouncedUpdateFile = useDebounceAsyncCallback(async (id: string, content: string) => {
     try {
       await updateFile(id, { content });
+      setLastSaved(new Date());
     } catch (error) {
       console.error('Failed to update file content:', error);
     }
@@ -349,7 +351,14 @@ export const EditorPage = () => {
             <div className="bg-white border-b border-gray-200 p-4 mx-4 mt-4 rounded-lg shadow-sm">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <h2 className="text-lg font-semibold text-gray-900">{currentFile.name}</h2>
+                  <div className="flex flex-col">
+                    <h2 className="text-lg font-semibold text-gray-900">{currentFile.name}</h2>
+                    {lastSaved && (
+                      <span className="text-[10px] text-green-600 font-medium -mt-1">
+                        Saved at {lastSaved.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                      </span>
+                    )}
+                  </div>
                   {blogAnalytics && (
                     <div className="flex items-center space-x-4 text-sm text-gray-600">
                       <div className="flex items-center">
