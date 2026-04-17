@@ -287,6 +287,20 @@ class ApiService {
     });
   }
 
+  async saveDraft(blogData: { 
+    fileId: string; 
+    title?: string; 
+    excerpt?: string; 
+    tags?: string[];
+    metaTitle?: string;
+    metaDescription?: string;
+  }): Promise<{ message: string; blog: BlogType }> {
+    return await this.request('/blogs/draft', {
+      method: 'POST',
+      body: JSON.stringify(blogData),
+    });
+  }
+
   async getBlogsByFileId(fileId: string): Promise<BlogsResponse> {
     return await this.request(`/blogs?fileId=${fileId}`);
   }
