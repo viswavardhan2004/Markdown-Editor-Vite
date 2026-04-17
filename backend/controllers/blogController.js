@@ -1039,8 +1039,73 @@ const getBlogLikeStatus = async (req, res) => {
   }
 };
 
+// Save a file content as a draft blog post (not published)
+const saveDraft = async (req, res) => {
+  try {
+    const { fileId, title, excerpt, tags, metaTitle, metaDescription } = req.body;
+
+    if (!fileId) {
+      return res.status(400).json({ error: 'File ID is required' });
+    }
+
+    // Get the file content
+    const file = await File.findOne({ _id: fileId, userId: req.user._id });
+    if (!file) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    // Check if a blog/draft already exists for this file
+    let blog = await Blog.findOne({ fileId, userId: req.user._id });
+
+    if (blog) {
+      // Update existing draft
+      blog.title = title || blog.title || file.name;
+      blog.content = file.content;
+      blog.excerpt = excerpt || blog.excerpt;
+      blog.tags = tags || blog.tags;
+      blog.metaTitle = metaTitle || blog.metaTitle;
+      blog.metaDescription = metaDescription || blog.metaDescription;
+      blog.status = 'draft';
+    } else {
+      // Create new draft
+      const draftTitle = title || file.name.replace(/\.(md|txt)$/i, '') || 'Untitled Draft';
+      blog = new Blog({
+        title: draftTitle,
+        content: file.content,
+        excerpt: excerpt || '',
+        tags: tags || [],
+        status: 'draft',
+        userId: req.user._id,
+        fileId,
+        metaTitle,
+        metaDescription
+      });
+
+      // Generate a unique slug
+      let baseSlug = blog.generateSlug();
+      if (!baseSlug || baseSlug.trim() === '') {
+        baseSlug = `draft-${Date.now()}`;
+      }
+      let slug = baseSlug;
+      let counter = 1;
+      while (await Blog.findOne({ slug })) {
+        slug = `${baseSlug}-${counter}`;
+        counter++;
+      }
+      blog.slug = slug;
+    }
+
+    await blog.save();
+    res.status(200).json({ message: 'Draft saved successfully', blog });
+  } catch (error) {
+    console.error('Save draft error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 module.exports = {
   publishBlog,
+  saveDraft,
   getUserBlogs,
   getBlog,
   getBlogBySlug,

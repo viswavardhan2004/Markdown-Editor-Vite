@@ -2,6 +2,7 @@ const express = require('express');
 const auth = require('../middleware/auth');
 const {
   publishBlog,
+  saveDraft,
   getUserBlogs,
   getBlog,
   getBlogBySlug,
@@ -65,6 +66,9 @@ router.use(auth);
 
 // POST /api/blogs/publish - Publish a file as a blog post
 router.post('/publish', publishBlog);
+
+// POST /api/blogs/draft - Save a file as a draft blog post
+router.post('/draft', saveDraft);
 
 // GET /api/blogs - Get all blogs for the authenticated user
 router.get('/', getUserBlogs);
