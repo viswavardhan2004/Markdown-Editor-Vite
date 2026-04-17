@@ -31,7 +31,7 @@ export const BlogListPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState<'publishedAt' | 'views' | 'likes'>('publishedAt');
+  const [sortBy, setSortBy] = useState<'publishedAt' | 'views' | 'likes' | 'readTime'>('publishedAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -346,6 +346,7 @@ export const BlogListPage: React.FC = () => {
                   <option value="publishedAt">Date Published</option>
                   <option value="views">Views</option>
                   <option value="likes">Likes</option>
+                  <option value="readTime">Read Time</option>
                 </select>
                 <select
                   value={sortOrder}

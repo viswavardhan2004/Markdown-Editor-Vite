@@ -903,6 +903,8 @@ const buildSortOptions = (sortBy, sortOrder) => {
       return { views: order };
     case 'likes':
       return { likes: order };
+    case 'readTime':
+      return { readTime: order };
     default:
       return { score: -1, publishedAt: -1 };
   }
