@@ -1,5 +1,5 @@
 import React from 'react';
-import { Copy, Trash2 } from 'lucide-react';
+import { Copy, Trash2, Download } from 'lucide-react';
 
 interface EditorProps {
   content: string;
@@ -42,6 +42,22 @@ export const Editor: React.FC<EditorProps> = ({
           >
             <Trash2 className="w-3 h-3" />
             <span>Clear</span>
+          </button>
+          <button 
+            onClick={() => {
+              const element = document.createElement("a");
+              const file = new Blob([content], {type: 'text/markdown'});
+              element.href = URL.createObjectURL(file);
+              element.download = "document.md";
+              document.body.appendChild(element);
+              element.click();
+              document.body.removeChild(element);
+            }}
+            className="flex items-center space-x-1 px-2 py-1 text-xs text-gray-600 hover:text-green-600 hover:bg-white rounded transition-colors border border-transparent hover:border-green-200"
+            title="Download as .md file"
+          >
+            <Download className="w-3 h-3" />
+            <span>Download</span>
           </button>
           <div className="text-xs text-gray-500">Markdown</div>
           <div className="flex space-x-1">
