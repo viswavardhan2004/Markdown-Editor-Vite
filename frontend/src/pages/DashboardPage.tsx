@@ -212,6 +212,7 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div title="Total number of times your published blogs have been viewed">
               <StatCard
                 title="Total Views"

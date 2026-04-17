@@ -19,6 +19,8 @@ export const Editor: React.FC<EditorProps> = ({
       <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
         <div className="flex items-center space-x-2">
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          <h2 className="text-sm font-medium text-gray-700">Editor</h2>
+        </div>
         <div className="flex items-center space-x-3">
           <button 
             onClick={() => {
