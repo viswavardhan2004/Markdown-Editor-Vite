@@ -115,7 +115,7 @@ export const DashboardPage: React.FC = () => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-600">{title}</p>
+          <p className="text-sm font-medium text-gray-600 truncate" title={title}>{title}</p>
           <p className="text-2xl font-bold text-gray-900">{formatNumber(value)}</p>
           {change !== undefined && (
             <p className={`text-xs mt-1 ${change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -201,31 +201,38 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <StatCard
-              title="Total Views"
-              value={stats?.totals.views || 0}
-              icon={Eye}
-              color="bg-blue-500"
-            />
-            <StatCard
-              title="Unique Views"
-              value={stats?.totals.uniqueViews || 0}
-              icon={Activity}
-              color="bg-green-500"
-            />
-            <StatCard
-              title="Likes"
-              value={stats?.totals.likes || 0}
-              icon={Heart}
-              color="bg-red-500"
-            />
-            <StatCard
-              title="Shares"
-              value={stats?.totals.shares || 0}
-              icon={Share2}
-              color="bg-purple-500"
-            />
+            <div title="Total number of times your published blogs have been viewed">
+              <StatCard
+                title="Total Views"
+                value={stats?.totals.views || 0}
+                icon={Eye}
+                color="bg-blue-500"
+              />
+            </div>
+            <div title="Unique visitors who have read your blogs">
+              <StatCard
+                title="Unique Views"
+                value={stats?.totals.uniqueViews || 0}
+                icon={Activity}
+                color="bg-green-500"
+              />
+            </div>
+            <div title="Total likes received across all your posts">
+              <StatCard
+                title="Likes"
+                value={stats?.totals.likes || 0}
+                icon={Heart}
+                color="bg-red-500"
+              />
+            </div>
+            <div title="Number of times your blogs have been shared">
+              <StatCard
+                title="Shares"
+                value={stats?.totals.shares || 0}
+                icon={Share2}
+                color="bg-purple-500"
+              />
+            </div>
           </div>
 
           {/* Blog Stats */}
