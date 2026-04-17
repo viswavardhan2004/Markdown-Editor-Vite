@@ -14,7 +14,8 @@ import {
   SlidersHorizontal,
   Trash2,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  Link2
 } from 'lucide-react';
 import { Navbar } from '../components/UI/Navbar';
 import { Button } from '../components/UI/Button';
@@ -233,15 +234,41 @@ export const BlogListPage: React.FC = () => {
               >
                 View
               </Button>
+              <Button
+                onClick={() => {
+                  const url = `${window.location.origin}/blog/${blog.slug}`;
+                  navigator.clipboard.writeText(url);
+                  alert('Blog link copied!');
+                }}
+                variant="secondary"
+                size="sm"
+                title="Copy blog link"
+              >
+                <Link2 className="w-4 h-4" />
+              </Button>
             </div>
           ) : (
-            <Button
-              onClick={() => handleViewBlog(blog)}
-              variant="secondary"
-              size="sm"
-            >
-              Read More
-            </Button>
+            <div className="flex space-x-2">
+              <Button
+                onClick={() => handleViewBlog(blog)}
+                variant="secondary"
+                size="sm"
+              >
+                Read More
+              </Button>
+              <Button
+                onClick={() => {
+                  const url = `${window.location.origin}/blog/${blog.slug}`;
+                  navigator.clipboard.writeText(url);
+                  alert('Blog link copied!');
+                }}
+                variant="secondary"
+                size="sm"
+                title="Copy blog link"
+              >
+                <Link2 className="w-4 h-4" />
+              </Button>
+            </div>
           )}
         </div>
       </div>
