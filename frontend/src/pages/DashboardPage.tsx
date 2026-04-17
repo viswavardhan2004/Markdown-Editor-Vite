@@ -326,10 +326,18 @@ export const DashboardPage: React.FC = () => {
                 <FileText className="w-4 h-4 mr-2" />
                 Editor
               </Button>
+              <Button 
+                onClick={() => navigate('/')}
+                variant="secondary"
+                className="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200"
+              >
+                <Eye className="w-4 h-4 mr-2" />
+                View Blog Page
+              </Button>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}; 
+};
