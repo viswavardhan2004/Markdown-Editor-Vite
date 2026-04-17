@@ -12,11 +12,16 @@ const generateRefreshToken = (userId) => {
 
 const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
 
     // Validate input
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    // Basic password strength validation
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long' });
     }
 
     const existingUser = await User.findOne({ email });
@@ -25,7 +30,7 @@ const register = async (req, res) => {
     }
 
     // First save the user
-    const user = new User({ email, password });
+    const user = new User({ email, password, username: username || '' });
     await user.save();
 
     // Then generate tokens using the saved user's _id
@@ -48,7 +53,7 @@ const register = async (req, res) => {
     res.status(201).json({ 
       accessToken,
       refreshToken,
-      user: { id: user._id, email: user.email } 
+      user: { id: user._id, email: user.email, username: user.username } 
     });
   } catch (error) {
     console.error('Registration error:', error);
@@ -86,7 +91,7 @@ const login = async (req, res) => {
     res.json({ 
       accessToken,
       refreshToken,
-      user: { id: user._id, email: user.email } 
+      user: { id: user._id, email: user.email, username: user.username } 
     });
   } catch (error) {
     console.error('Login error:', error);
