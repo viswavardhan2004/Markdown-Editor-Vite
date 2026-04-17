@@ -9,6 +9,26 @@ const blogRoutes = require('./routes/blogs');
 
 const app = express();
 
+// Database connection optimized for serverless
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+  
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      bufferCommands: false, // Disable buffering to catch connection issues immediately
+    });
+    console.log('Connected to MongoDB');
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+  }
+};
+
+// Middleware to ensure DB connection
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 // Advanced CORS configuration for Vercel/Production
 app.use(cors({
   origin: function (origin, callback) {

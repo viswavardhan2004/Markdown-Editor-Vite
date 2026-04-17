@@ -396,8 +396,11 @@ const getAllPublicBlogs = async (req, res) => {
     res.json({
       blogs,
       totalPages: Math.ceil(totalCount / limit),
-      currentPage: page,
-      total: totalCount
+      currentPage: parseInt(page),
+      total: totalCount,
+      searchQuery: search || '',
+      suggestions: [],
+      hasMore: page < Math.ceil(totalCount / limit)
     });
   } catch (error) {
     console.error('Get all public blogs error:', error);
