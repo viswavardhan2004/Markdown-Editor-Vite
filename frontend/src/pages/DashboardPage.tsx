@@ -55,6 +55,7 @@ export const DashboardPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [period, setPeriod] = useState(30);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -79,6 +80,7 @@ export const DashboardPage: React.FC = () => {
       
       const data = await apiService.getDashboardAnalytics(period);
       setStats(data);
+      setLastUpdated(new Date());
     } catch (error) {
       console.error('Failed to load dashboard stats:', error);
       setError('Failed to load dashboard statistics');
@@ -201,6 +203,11 @@ export const DashboardPage: React.FC = () => {
                 </Button>
               </div>
             </div>
+            {lastUpdated && (
+              <p className="text-xs text-gray-400 mt-2 text-right">
+                Stats last updated: {lastUpdated.toLocaleTimeString()}
+              </p>
+            )}
           </div>
 
           {/* Stats Cards */}
