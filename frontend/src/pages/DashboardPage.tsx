@@ -288,7 +288,10 @@ export const DashboardPage: React.FC = () => {
                     <span className="text-xs text-gray-400">#{index + 1}</span>
                   </div>
                 )) || (
-                  <p className="text-gray-500 text-sm">No blogs published yet</p>
+                  <div className="text-center py-4">
+                    <p className="text-gray-400 text-sm">No blogs published yet</p>
+                    <p className="text-xs text-gray-300 mt-1">Your top stories will appear here</p>
+                  </div>
                 )}
               </div>
             </div>
@@ -315,7 +318,10 @@ export const DashboardPage: React.FC = () => {
                     </span>
                   </div>
                 )) || (
-                  <p className="text-gray-500 text-sm">No recent activity</p>
+                  <div className="text-center py-4">
+                    <p className="text-gray-400 text-sm">No recent activity</p>
+                    <p className="text-xs text-gray-300 mt-1">Start writing to see updates</p>
+                  </div>
                 )}
               </div>
             </div>
