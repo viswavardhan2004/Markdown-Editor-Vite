@@ -12,7 +12,9 @@ import {
   User,
   Tag,
   SlidersHorizontal,
-  Trash2
+  Trash2,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 import { Navbar } from '../components/UI/Navbar';
 import { Button } from '../components/UI/Button';
@@ -349,14 +351,16 @@ export const BlogListPage: React.FC = () => {
                   <option value="likes">Likes</option>
                   <option value="readTime">Read Time</option>
                 </select>
-                <select
-                  value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-                  className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <Button
+                  onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
+                  variant="secondary"
+                  size="sm"
+                  title={sortOrder === 'asc' ? 'Oldest first' : 'Newest first'}
+                  className="flex items-center"
                 >
-                  <option value="desc">Newest First</option>
-                  <option value="asc">Oldest First</option>
-                </select>
+                  {sortOrder === 'asc' ? <ArrowUp className="w-4 h-4 mr-1" /> : <ArrowDown className="w-4 h-4 mr-1" />}
+                  {sortOrder === 'asc' ? 'Asc' : 'Desc'}
+                </Button>
               </div>
               
               <div className="flex-1"></div>
