@@ -68,6 +68,37 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Database Diagnostic Route
+app.get('/api/db-test', async (req, res) => {
+  try {
+    const state = mongoose.connection.readyState;
+    const states = {
+      0: 'Disconnected',
+      1: 'Connected',
+      2: 'Connecting',
+      3: 'Disconnecting',
+      99: 'Uninitialized'
+    };
+    
+    // Try a simple operation
+    const testResult = await mongoose.connection.db.admin().ping();
+    
+    res.json({
+      status: 'Success',
+      connectionState: states[state] || state,
+      ping: testResult,
+      uri_provided: !!process.env.MONGODB_URI
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 'Error',
+      message: err.message,
+      code: err.code,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
+  }
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);
